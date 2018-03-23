@@ -1,0 +1,94 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Product Details</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content [@flyInTopSlow]="0">
+    <div class="prod-title">{{item?.Product.productname}}</div>
+    <ion-card>
+        <ion-row>
+            <ion-col>
+                <img [src]="image" imageViewer />
+            </ion-col>
+            <!-- <ion-col width-50>
+                <ion-row class="qty">
+                    <ion-col col-4>
+                        <button class="minus" (tap)="decrement()" ion-button block><ion-icon name="remove"></ion-icon></button>
+                    </ion-col>
+                    <ion-col col-4>
+                        <ion-input type="number" [(ngModel)]="qty"></ion-input>
+                    </ion-col>
+                    <ion-col col-4>
+                        <button class="plus" (tap)="increment()" ion-button block><ion-icon name="add"></ion-icon></button>
+                    </ion-col>
+                </ion-row>
+            </ion-col> -->
+        </ion-row>
+    </ion-card>
+    <!-- <ion-list>
+        <ion-item class="price-sec">
+            <ion-note item-left>
+                <span>{{ config.currency.sign }} {{ item?.price }}</span>
+            </ion-note>
+            <ion-note item-right *ngIf="appHttp.appAuth.isLoggedIn()">
+                <button ion-button icon-only clear (tap)="toggleWishlist()">
+                    <ion-icon style="color: #ff8585;" [name]="item?.wishlist ? 'heart' : 'heart-outline'"></ion-icon>
+                </button>
+            </ion-note>
+        </ion-item>
+    </ion-list> -->
+    <hr/>
+    <ion-card class="prod-desc">
+        <ion-row>
+            <ion-col><h3>About Product:</h3> {{item?.Product.productdesc}}</ion-col>
+        </ion-row>
+    </ion-card>
+    <ion-card *ngFor="let pkg of item.Package" [hidden]="pkg.toshow != 'Y'" class="packages">
+        <ion-row class="pkg-title">
+            <ion-col>{{ pkg.unitname }}</ion-col>
+        </ion-row>
+        <ion-row class="pkg-price" align-items-center>
+            <ion-col class="price-col">Price: {{ config.currency.sign + pkg.price }}</ion-col>
+            <ion-col class="qty-col">
+                <ion-row class="qty">
+                    <ion-col col-4>
+                        <button class="minus" (tap)="decrement(pkg)" ion-button block><ion-icon name="remove"></ion-icon></button>
+                    </ion-col>
+                    <ion-col col-4>
+                        <ion-input type="number" [(ngModel)]="pkg.qty" readonly="true"></ion-input>
+                    </ion-col>
+                    <ion-col col-4>
+                        <button class="plus" (tap)="increment(pkg)" ion-button block><ion-icon name="add"></ion-icon></button>
+                    </ion-col>
+                </ion-row>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <button ion-button full [disabled]="pkg.available != 'Y'" (click)="addToCart(pkg)">
+                <ion-icon style="padding-right:7px" name="cart"></ion-icon>
+                {{ pkg.available == 'Y' ? '+ Add to Cart' : 'Not Available' }}
+            </button>
+        </ion-row>
+    </ion-card>
+</ion-content>
+<ion-footer>
+    <ion-toolbar style="padding: 0; min-height: 0;">
+        <ion-grid style="padding: 0;">
+            <ion-row style="padding: 0;">
+                <!-- <ion-col style="padding: 0;" width-50>
+                    <button class="footer-b1" ion-button full (click)="addToCart()">
+                        <ion-icon style="padding-right:7px" name="cart"></ion-icon> + Add to Cart
+                    </button>
+                </ion-col> -->
+                <ion-col style="padding: 0;">
+                    <button class="footer-b1" ion-button full (click)="buyNow()">
+                        Cart <ion-icon style="padding-left:10px" name="ios-arrow-forward"></ion-icon>
+                    </button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,31 @@
+products-layout {
+    ion-card {
+        position: relative;
+        width: 100% !important;
+        margin: 0;
+        border: 1px solid #e4e4e4;
+
+        img {
+            padding: 5px 5px 0px 5px;
+            width: auto;
+            margin: 0 auto;
+        }
+
+        div {
+            text-overflow: ellipsis;
+            overflow: hidden;
+            padding: 4%;
+            white-space: nowrap;
+            font-size: 14px;
+            color: #656565;
+
+            &.price-sec {
+                background: rgba(41, 71, 119, 0.17);
+
+                span {
+                    float: left;
+                }
+            }
+        }
+    }
+}

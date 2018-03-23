@@ -1,0 +1,193 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Manage Address</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content class="settings-content">
+    <ion-item-group>
+        <ion-card>
+            <ion-card-header>
+                <b>Billing Address</b>
+            </ion-card-header>
+            
+            <form [formGroup]="billingForm">
+                <ion-grid>
+                    <ion-row>
+                        <ion-col>
+                            <ion-item>
+                                <ion-label floating>First Name</ion-label>
+                                <ion-input class="input-text" [formControl]="billingForm.controls['firstName']" [class.invalid]="!billingForm.controls['firstName'].valid  && billingForm.controls['firstName'].touched"></ion-input>
+                            </ion-item>
+                            <p *ngIf="!billingForm.controls['firstName'].valid  && billingForm.controls['firstName'].touched" class="invalid-text">Please enter a valid first name.</p>
+                        </ion-col>
+                        <ion-col>
+                            <ion-item>
+                                <ion-label floating>Last Name</ion-label>
+                                <ion-input class="input-text" [formControl]="billingForm.controls['lastName']" [class.invalid]="!billingForm.controls['lastName'].valid  && billingForm.controls['lastName'].touched"></ion-input>
+                            </ion-item>
+                            <p *ngIf="!billingForm.controls['lastName'].valid  && billingForm.controls['lastName'].touched" class="invalid-text">Please enter a valid last name.</p>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col>
+                            <ion-item>
+                                <ion-label floating>Address Line 1</ion-label>
+                                <ion-input class="input-text" [formControl]="billingForm.controls['line1']" [class.invalid]="!billingForm.controls['line1'].valid  && billingForm.controls['line1'].touched"></ion-input>
+                            </ion-item>
+                            <p *ngIf="!billingForm.controls['line1'].valid  && billingForm.controls['line1'].touched" class="invalid-text">Address Line 1 is required</p>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col>
+                            <ion-item>
+                                <ion-label floating>Address Line 2</ion-label>
+                                <ion-input class="input-text" [formControl]="billingForm.controls['line2']"></ion-input>
+                            </ion-item>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col>
+                            <ion-item>
+                                <ion-label floating>City</ion-label>
+                                <ion-input class="input-text" [formControl]="billingForm.controls['city']" [class.invalid]="!billingForm.controls['city'].valid  && billingForm.controls['city'].touched"></ion-input>
+                            </ion-item>
+                            <p *ngIf="!billingForm.controls['city'].valid  && billingForm.controls['city'].touched" class="invalid-text">City is required.</p>
+                        </ion-col>
+                        <ion-col>
+                            <ion-item>
+                                <ion-label floating>Zipcode</ion-label>
+                                <ion-input class="input-text" [formControl]="billingForm.controls['zipcode']" [class.invalid]="!billingForm.controls['zipcode'].valid  && billingForm.controls['zipcode'].touched"></ion-input>
+                            </ion-item>
+                            <p *ngIf="!billingForm.controls['zipcode'].valid  && billingForm.controls['zipcode'].touched" class="invalid-text">Zipcode is required.</p>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col>
+                            <ion-item>
+                                <ion-label floating>State</ion-label>
+                                <ion-input class="input-text" [formControl]="billingForm.controls['state']" [class.invalid]="!billingForm.controls['state'].valid  && billingForm.controls['state'].touched"></ion-input>
+                            </ion-item>
+                            <p *ngIf="!billingForm.controls['state'].valid  && billingForm.controls['state'].touched" class="invalid-text">State is required.</p>
+                        </ion-col>
+                        <ion-col>
+                            <ion-item>
+                                <ion-label floating>Country</ion-label>
+                                <ion-select [formControl]="billingForm.controls['country']">
+                                    <ion-option *ngFor="let country of appAuth.countries" [value]="country.id">{{ country.country_name }}</ion-option>
+                                </ion-select>
+                            </ion-item>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col>
+                            <ion-item>
+                                <ion-label floating>Phone</ion-label>
+                                <ion-input class="input-text" [formControl]="billingForm.controls['phone']" [class.invalid]="!billingForm.controls['phone'].valid  && billingForm.controls['phone'].touched"></ion-input>
+                            </ion-item>
+                            <p *ngIf="!billingForm.controls['phone'].valid  && billingForm.controls['phone'].touched" class="invalid-text">Please enter a valid phone number.</p>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col>
+                            <button ion-button full [disabled]="!billingForm.valid" (click)="saveAddr('billing')">Save</button>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </form>
+        </ion-card>
+
+        <ion-card>
+            <ion-card-header>
+                <b>Shipping Address</b>
+            </ion-card-header>
+            
+            <form [formGroup]="shippingForm">
+                <ion-grid>
+                    <ion-row>
+                        <ion-col>
+                            <ion-item>
+                                <ion-label floating>First Name</ion-label>
+                                <ion-input class="input-text" [formControl]="shippingForm.controls['firstName']" [class.invalid]="!shippingForm.controls['firstName'].valid  && shippingForm.controls['firstName'].touched"></ion-input>
+                            </ion-item>
+                            <p *ngIf="!shippingForm.controls['firstName'].valid  && shippingForm.controls['firstName'].touched" class="invalid-text">Please enter a valid first name.</p>
+                        </ion-col>
+                        <ion-col>
+                            <ion-item>
+                                <ion-label floating>Last Name</ion-label>
+                                <ion-input class="input-text" [formControl]="shippingForm.controls['lastName']" [class.invalid]="!shippingForm.controls['lastName'].valid  && shippingForm.controls['lastName'].touched"></ion-input>
+                            </ion-item>
+                            <p *ngIf="!shippingForm.controls['lastName'].valid  && shippingForm.controls['lastName'].touched" class="invalid-text">Please enter a valid last name.</p>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col>
+                            <ion-item>
+                                <ion-label floating>Address Line 1</ion-label>
+                                <ion-input class="input-text" [formControl]="shippingForm.controls['line1']" [class.invalid]="!shippingForm.controls['line1'].valid  && shippingForm.controls['line1'].touched"></ion-input>
+                            </ion-item>
+                            <p *ngIf="!shippingForm.controls['line1'].valid  && shippingForm.controls['line1'].touched" class="invalid-text">Address Line 1 is required</p>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col>
+                            <ion-item>
+                                <ion-label floating>Address Line 2</ion-label>
+                                <ion-input class="input-text" [formControl]="shippingForm.controls['line2']"></ion-input>
+                            </ion-item>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col>
+                            <ion-item>
+                                <ion-label floating>City</ion-label>
+                                <ion-input class="input-text" [formControl]="shippingForm.controls['city']" [class.invalid]="!shippingForm.controls['city'].valid  && shippingForm.controls['city'].touched"></ion-input>
+                            </ion-item>
+                            <p *ngIf="!shippingForm.controls['city'].valid  && shippingForm.controls['city'].touched" class="invalid-text">City is required.</p>
+                        </ion-col>
+                        <ion-col>
+                            <ion-item>
+                                <ion-label floating>Zipcode</ion-label>
+                                <ion-input class="input-text" [formControl]="shippingForm.controls['zipcode']" [class.invalid]="!shippingForm.controls['zipcode'].valid  && shippingForm.controls['zipcode'].touched"></ion-input>
+                            </ion-item>
+                            <p *ngIf="!shippingForm.controls['zipcode'].valid  && shippingForm.controls['zipcode'].touched" class="invalid-text">Zipcode is required.</p>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col>
+                            <ion-item>
+                                <ion-label floating>State</ion-label>
+                                <ion-input class="input-text" [formControl]="shippingForm.controls['state']" [class.invalid]="!shippingForm.controls['state'].valid  && shippingForm.controls['state'].touched"></ion-input>
+                            </ion-item>
+                            <p *ngIf="!shippingForm.controls['state'].valid  && shippingForm.controls['state'].touched" class="invalid-text">State is required.</p>
+                        </ion-col>
+                        <ion-col>
+                            <ion-item>
+                                <ion-label floating>Country</ion-label>
+                                <ion-select [formControl]="shippingForm.controls['country']">
+                                    <ion-option *ngFor="let country of appAuth.countries" [value]="country.id">{{ country.country_name }}</ion-option>
+                                </ion-select>
+                            </ion-item>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col>
+                            <ion-item>
+                                <ion-label floating>Phone</ion-label>
+                                <ion-input class="input-text" [formControl]="shippingForm.controls['phone']" [class.invalid]="!shippingForm.controls['phone'].valid  && shippingForm.controls['phone'].touched"></ion-input>
+                            </ion-item>
+                            <p *ngIf="!shippingForm.controls['phone'].valid  && shippingForm.controls['phone'].touched" class="invalid-text">Please enter a valid phone number.</p>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col>
+                            <button ion-button full [disabled]="!shippingForm.valid" (click)="saveAddr('shipping')">Save</button>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </form>
+        </ion-card>
+    </ion-item-group>
+</ion-content>

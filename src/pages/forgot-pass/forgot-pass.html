@@ -1,0 +1,24 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Forgot Password</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content text-center padding style="background-size: cover; background-image: url(assets/img/back.jpg);">
+    <p><img src='assets/img/logo.png' style="margin-bottom:10px; border-radius: 50%; max-width: 100px;" /></p>
+    <ion-card>
+        <form [formGroup]="loginForm" novalidate padding>
+            <ion-list>
+                <ion-item>
+                    <ion-label floating>Email ID</ion-label>
+                    <ion-input type="text" [formControl]="loginForm.controls['email']"></ion-input>
+                </ion-item>
+            </ion-list>
+            <ion-item class="error-item" *ngIf="!loginForm.controls['email'].valid  && loginForm.controls['email'].touched">
+                <p class="invalid-text">Please enter a valid email address.</p>
+            </ion-item>
+            <br>
+            <button [disabled]="!loginForm.valid" (tap)="resetPassword()" ion-button class="button-login" block>Submit</button>
+            <br>
+        </form>
+    </ion-card>
+</ion-content>

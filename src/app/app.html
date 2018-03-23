@@ -1,0 +1,28 @@
+<ion-menu [content]="content">
+    <ion-header>
+        <div class="header-background-image">
+           <!--  <ion-thumbnail>
+                <img style="border-radius: 50%;" src="assets/images/logo/login.png">
+            </ion-thumbnail>
+            <h2 item-title class="menu-title">TOPFLIGHT</h2> -->
+        </div>
+    </ion-header>
+    <ion-content>
+        <ion-row style="background:#73a42e;color: #ffffff;height: 50px; text-align:center;">
+            <ion-card style="font-weight: bold;background:#73a42e; margin-top: 1px; padding: 0px;box-shadow: none">
+                <ion-card-content *ngIf="appAuth.currentUser === undefined" style="font-size:15px !important;font-weight: 400;">
+                    Welcome Guest <a style="font-size: 15px;padding-left: 15px; color: #fff" (click)="login()" clear menuToggle> (Sign In)</a>
+                </ion-card-content>
+                <ion-card-content *ngIf="appAuth.currentUser" style="font-size:15px !important;font-weight: 400;">
+                    Welcome {{ appAuth.currentUser.fname }}
+                </ion-card-content>
+            </ion-card>
+        </ion-row>
+        <ion-list>
+            <button  menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)" [hidden]="showHideMenuItem(p.title)">
+                <ion-icon name="{{p.icon}}" item-left></ion-icon>{{p.title }}
+            </button>
+        </ion-list>
+    </ion-content>
+</ion-menu>
+<ion-nav #content [root]="rootPage"></ion-nav>

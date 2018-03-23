@@ -1,0 +1,66 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Checkout</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content class="settings-content">
+    <ion-item-group>
+        <ion-card>
+            <ion-grid>
+                <ion-row>
+                    <ion-col>
+                        <ion-item>
+                            <ion-label floating>Comments</ion-label>
+                            <ion-textarea style="border: 1px solid #eee;" [(ngModel)]="comment"></ion-textarea>
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col>
+                        <ion-item>
+                            <ion-label>Make it a recurring order</ion-label>
+                            <ion-checkbox [(ngModel)]="recurring"></ion-checkbox>
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col>
+                        <ion-item>
+                            <ion-label>Pick Up Location</ion-label>
+                            <ion-checkbox [(ngModel)]="showRecurring"></ion-checkbox>
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
+                <ion-row [hidden]="!showRecurring">
+                    <ion-col>
+                        <ion-item>
+                            <ion-label floating>Select Pickup Location</ion-label>
+                            <ion-select [(ngModel)]="pick_title" >
+                                <ion-option *ngFor="let loc of pickupLocations" [value]="loc.Pickuplocation.id">{{ loc.Pickuplocation.title }}</ion-option>
+                            </ion-select>
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-card>
+
+        <ion-card>
+            <ion-card-header>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col>Cart Total:</ion-col>
+                        <ion-col text-right>{{ config.currency.sign }} {{ appAuth.cart.total }}</ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col>
+                            <button ion-button full (click)="proceedToPayment()">Checkout</button>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-card-header>
+        </ion-card>
+    </ion-item-group>
+</ion-content>

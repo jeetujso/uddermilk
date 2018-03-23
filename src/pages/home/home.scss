@@ -1,0 +1,86 @@
+page-home {
+    .searchbar-md .searchbar-input {
+        padding: 6px 55px;
+        height: auto;
+        border-radius: 2px;
+        font-size: 1.6rem;
+        font-weight: 400;
+        line-height: 3rem;
+        color: #141414;
+        background-color: #ffffff !important;
+        background-position: 8px center;
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+    }
+
+    .searchbar-md {
+        padding: 8px;
+        background: #4958b2;
+    }
+
+    ion-row.categories {
+        ion-col {
+            ion-card {
+                p {
+                    // margin-top: -24px;
+                    // color: #fff;
+                    text-align: center;
+                    // text-overflow: ellipsis;
+                    // text-shadow: 1px 2px 2px #000;
+                    // white-space: nowrap;
+                    // overflow: hidden;
+                    /* For col-12 */
+                    padding: 10px;
+                    color: #000;
+                    font-weight: 400;
+                    font-size: 16px;
+                }
+            }
+        }
+    }
+
+    ion-card {
+        // margin: 0 !important;
+        // width: calc(100%) !important;
+        padding: 10px 10px 0;
+    }
+
+    ion-grid.featured-prod-title {
+        background: color($colors, primary);
+        color: #fff;
+        font-size: 16px;
+    }
+
+    ion-scroll.featured-prods {
+        height: 200px;
+
+        .name {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+    
+    ion-row.select-tab{
+        ion-col {
+            background-color: #eee;
+            font-size: 16px;
+            font-weight: 400;
+            padding-left: 15px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            border-width: 4px;
+            border-top: 4px solid #eee;
+            border-bottom: 4px solid color($colors, primary);
+
+            &.active {
+                border-top: 4px solid color($colors, primary);
+                border-left: 4px solid color($colors, primary);
+                border-right: 4px solid color($colors, primary);
+                border-bottom: 4px solid #fff;
+                color: color($colors, primary);
+                background-color: #fff;
+                border-radius: 7px 7px 0 0;
+            }
+        }
+    }
+}

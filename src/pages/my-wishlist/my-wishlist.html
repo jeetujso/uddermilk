@@ -1,0 +1,26 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>My Wishlist</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content>
+    <ion-card *ngFor="let item of items; let i=index" [@flyAlternameSlow]="i%2 + 1">
+        <ion-item (tap)="openProduct(item.product_id)">
+            <ion-avatar item-left>
+                <img [src]="config.productUri + item.main_img"/>
+            </ion-avatar>
+            <h2>{{ item.product_name }}</h2>
+            <button ion-button item-right>
+                {{ config.currency.sign }} {{ item.product_price[config.currency.name]}} <ion-icon name="cart"></ion-icon> +
+            </button>
+        </ion-item>
+    </ion-card>
+    <ion-grid *ngIf="items.length == 0">
+        <ion-row>
+            <ion-col text-center>No products added to wishlist!</ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

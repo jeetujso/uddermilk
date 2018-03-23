@@ -1,0 +1,88 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Contact Us</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content class="settings-content">
+    <ion-item-group>
+        <ion-card>
+            <ion-card-header style="padding-bottom: 0;">
+                <h1>Address</h1>
+            </ion-card-header>
+            
+            <ion-grid>
+                <ion-row>
+                    <ion-col>
+                        <ion-item>
+                            <p style="white-space: initial;">We'd love to hear any comments or suggestions you have which may improve the way we service our customers.</p>
+                            <hr/>
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col>
+                        <ion-item>
+                            <p><b>Phone:</b> 201-428-8745, 973 413 9585</p>
+                            <p><b>Email:</b> uddermilk.orderconfirm@gmail.com</p>
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-card>
+
+        <ion-card>
+            <ion-card-header>
+                <h1>Leave Message</h1>
+                <p>Get in touch with us with following steps:</p>
+            </ion-card-header>
+            
+            <form [formGroup]="contactForm">
+                <ion-grid>
+                    <ion-row>
+                        <ion-col>
+                            <ion-item>
+                                <ion-label floating>Name</ion-label>
+                                <ion-input class="input-text" [formControl]="contactForm.controls['name']" [class.invalid]="!contactForm.controls['name'].valid  && contactForm.controls['name'].touched"></ion-input>
+                            </ion-item>
+                            <p *ngIf="!contactForm.controls['name'].valid  && contactForm.controls['name'].touched" class="invalid-text">Name is required.</p>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col>
+                            <ion-item>
+                                <ion-label floating>Email</ion-label>
+                                <ion-input class="input-text" [formControl]="contactForm.controls['email']" [class.invalid]="!contactForm.controls['email'].valid  && contactForm.controls['email'].touched"></ion-input>
+                            </ion-item>
+                            <p *ngIf="!contactForm.controls['email'].valid  && contactForm.controls['email'].touched" class="invalid-text">Please enter a valid email.</p>
+                        </ion-col>
+                    </ion-row>
+                    <!-- <ion-row>
+                        <ion-col>
+                            <ion-item>
+                                <ion-label floating>Phone</ion-label>
+                                <ion-input class="input-text" [formControl]="contactForm.controls['phone']" [class.invalid]="!contactForm.controls['phone'].valid  && contactForm.controls['phone'].touched"></ion-input>
+                            </ion-item>
+                            <p *ngIf="!contactForm.controls['phone'].valid  && contactForm.controls['phone'].touched" class="invalid-text">Phone is required.</p>
+                        </ion-col>
+                    </ion-row> -->
+                    <ion-row>
+                        <ion-col>
+                            <ion-item>
+                                <ion-label floating>Your Message Here</ion-label>
+                                <ion-textarea class="input-text" [formControl]="contactForm.controls['msg']"></ion-textarea>
+                            </ion-item>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col>
+                            <button ion-button full [disabled]="!contactForm.valid" (click)="submitQuery()">Save</button>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </form>
+        </ion-card>
+    </ion-item-group>
+</ion-content>

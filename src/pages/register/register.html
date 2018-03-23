@@ -1,0 +1,122 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>{{ step == 3 ? 'Select Location' : 'Register' }} </ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content text-center padding>
+    <ion-card [hidden]="step !== 1">
+        <form [formGroup]="registerForm" novalidate padding>
+            <ion-list>
+                <ion-item>
+                    <ion-label floating>First Name</ion-label>
+                    <ion-input type="text" [formControl]="registerForm.controls['fname']"></ion-input>
+                </ion-item>
+                <ion-item *ngIf="!registerForm.controls['fname'].valid  && registerForm.controls['fname'].touched">
+                    <p class="invalid-text">This field is required.</p>
+                </ion-item>
+                <ion-item>
+                    <ion-label floating>Last Name</ion-label>
+                    <ion-input type="text" [formControl]="registerForm.controls['lname']"></ion-input>
+                </ion-item>
+                <ion-item *ngIf="!registerForm.controls['lname'].valid  && registerForm.controls['lname'].touched">
+                    <p class="invalid-text">This field is required.</p>
+                </ion-item>
+                <ion-item>
+                    <ion-label floating>Email</ion-label>
+                    <ion-input class="input-text" [class.invalid]="!registerForm.controls['email'].valid  && registerForm.controls['email'].touched" [formControl]="registerForm.controls['email']" type="email"></ion-input>
+                </ion-item>
+                <ion-item *ngIf="!registerForm.controls['email'].valid  && registerForm.controls['email'].touched">
+                    <p class="invalid-text">Please enter a valid email address.</p>
+                </ion-item>
+                <ion-item>
+                    <ion-label floating>Password</ion-label>
+                    <ion-input class="input-text" [class.invalid]="!registerForm.controls['password'].valid  && registerForm.controls['password'].touched" [formControl]="registerForm.controls['password']" type="password"></ion-input>
+                </ion-item>
+                <ion-item *ngIf="registerForm.controls['password'].hasError('required') && registerForm.controls['password'].touched">
+                    <p class="invalid-text">Password cannot be empty.</p>
+                </ion-item>
+                <ion-item *ngIf="registerForm.controls['password'].hasError('invalidPassword') && !registerForm.controls['password'].hasError('required') && registerForm.controls['password'].touched">
+                    <p>Passwords must contain the following:</p>
+                    <ul class='actualList invalid-text'>
+                        <li>8+ characters</li>
+                        <li>an uppercase letter</li>
+                        <li>a lowercase letter</li>
+                        <li>a symbol</li>
+                        <li>a number</li>
+                    </ul>
+                </ion-item>
+                <ion-item>
+                    <ion-label floating>Confirm Password</ion-label>
+                    <ion-input class="input-text" [class.invalid]="!registerForm.controls['passwordConfirm'].valid  && registerForm.controls['passwordConfirm'].touched" [formControl]="registerForm.controls['passwordConfirm']" type="password"></ion-input>
+                </ion-item>
+                <ion-item *ngIf="!registerForm.controls['passwordConfirm'].valid  && registerForm.controls['passwordConfirm'].touched">
+                    <p class="invalid-text">Please confirm your password.</p>
+                </ion-item>
+                <ion-item *ngIf="!passwordsMatch  && registerForm.controls['passwordConfirm'].touched && registerForm.controls['passwordConfirm'].valid">
+                    <p class="invalid-text">Passwords do not match.</p>
+                </ion-item>
+                <ion-item>
+                    <ion-label floating>Primary Phone</ion-label>
+                    <ion-input type="text" [formControl]="registerForm.controls['phone']"></ion-input>
+                </ion-item>
+                <ion-item *ngIf="!registerForm.controls['phone'].valid  && registerForm.controls['phone'].touched">
+                    <p class="invalid-text">Please enter a valid phone number.</p>
+                </ion-item>
+                <ion-item>
+                    <ion-label floating>Secondary Phone</ion-label>
+                    <ion-input type="text" [formControl]="registerForm.controls['sphone']"></ion-input>
+                </ion-item>
+                <ion-item *ngIf="!registerForm.controls['sphone'].valid  && registerForm.controls['sphone'].touched">
+                    <p class="invalid-text">Please enter a valid phone number.</p>
+                </ion-item>
+            </ion-list>
+            <br>
+            <button ion-button class="button-login" [disabled]="!registerForm.valid  || !passwordsMatch" (click)="step1submit()" block>Next</button>
+            <br>
+        </form>
+    </ion-card>
+
+    <ion-card [hidden]="step !== 2">
+        <form [formGroup]="addressForm" novalidate padding>
+            <ion-list>
+                <ion-item>
+                    <ion-label floating>Street Number</ion-label>
+                    <ion-input type="text" [formControl]="addressForm.controls['street']"></ion-input>
+                </ion-item>
+                <ion-item *ngIf="!addressForm.controls['street'].valid  && addressForm.controls['street'].touched">
+                    <p class="invalid-text">This field is required.</p>
+                </ion-item>
+                <ion-item>
+                    <ion-label floating>Apartment</ion-label>
+                    <ion-input type="text" [formControl]="addressForm.controls['apartment']"></ion-input>
+                </ion-item>
+                <ion-item *ngIf="!addressForm.controls['apartment'].valid  && addressForm.controls['apartment'].touched">
+                    <p class="invalid-text">This field is required.</p>
+                </ion-item>
+                <ion-item>
+                    <ion-label floating>Address</ion-label>
+                    <ion-input type="text" [formControl]="addressForm.controls['address']"></ion-input>
+                </ion-item>
+                <ion-item *ngIf="!addressForm.controls['address'].valid  && addressForm.controls['address'].touched">
+                    <p class="invalid-text">This field is required.</p>
+                </ion-item>
+            </ion-list>
+            <br>
+            <button ion-button class="button-login" [disabled]="!addressForm.valid" (click)="showOnMap()" block>Show on Map</button>
+            <br>
+            <button ion-button class="button-login" (click)="step = 1" block>Back</button>
+            <br>
+        </form>
+    </ion-card>
+    
+    <ion-card style="height:100%;position:relative;" [hidden]="step !== 3">
+        <!-- <ion-card-header class="map-headr">Select Location</ion-card-header> -->
+        <div #map id="map"></div>
+        <div id="selected-addr"><strong>Address: </strong> {{ locData?.address }}</div>
+        <br>
+        <button ion-button class="button-login" (click)="register()" block>Submit</button>
+        <br>
+        <button ion-button class="button-login" (click)="step = 2" block>Back</button>
+        <br>
+    </ion-card>
+</ion-content>

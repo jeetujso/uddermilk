@@ -1,0 +1,71 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Cart</ion-title>
+    </ion-navbar>
+    <div padding class="top">
+        <ion-item class="totalHeader">
+            <ion-note item-left class="total">Total </ion-note>
+            <ion-note item-right class="total">{{ config.currency.sign }} {{ appAuth.cart.total }} </ion-note>
+        </ion-item>
+    </div>
+</ion-header>
+<ion-content>
+    <ion-grid>
+        <ion-card *ngFor="let item of keys(appAuth.cart.lineItems); let i=index" [@flyAlternameSlow]="i%2 + 1">
+            <ion-row nowrap>
+                <ion-col col-3 style="padding: 5px;">
+                    <img style="height: 110px; padding: 5px; width: auto; margin: 0 auto;" [src]="appAuth.cart.lineItems[item].image.length > 0 ? config.productUri + appAuth.cart.lineItems[item].image : config.noImage" />
+                </ion-col>
+                <ion-col col-9 style="padding: 5px;position: relative;">
+                    <div class="name" style="padding-right: 50px;">
+                        <ion-badge>{{ config.currency.sign }} {{ appAuth.cart.lineItems[item].price }}</ion-badge> {{appAuth.cart.lineItems[item].name}}
+                    </div>
+                    <div style="position: absolute;bottom: 0">
+                        <ion-grid>
+                            <ion-row>
+                                <ion-col col-4 class="add">Qty</ion-col>
+                                <ion-col col-2>
+                                    <button ion-button small outline (tap)="appAuth.cart.increment(appAuth.cart.lineItems[item].pid, appAuth.cart.lineItems[item].pkgId)" block>
+                                        <ion-icon name="add"></ion-icon>
+                                    </button>
+                                </ion-col>
+                                <ion-col col-2>
+                                    <button ion-button small outline full block color="dark">{{appAuth.cart.lineItems[item].qty}}</button>
+                                </ion-col>
+                                <ion-col col-2>
+                                    <button ion-button small outline (tap)="appAuth.cart.decrement(appAuth.cart.lineItems[item].pid, appAuth.cart.lineItems[item].pkgId)" block>
+                                        <ion-icon name="remove"></ion-icon>
+                                    </button>
+                                </ion-col>
+                                <ion-col col-2>
+                                    <button ion-button small color="danger" block (tap)="appAuth.cart.remove(appAuth.cart.lineItems[item].pid, appAuth.cart.lineItems[item].pkgId)">
+                                        <ion-icon name="md-trash"></ion-icon>
+                                    </button>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </div>
+                </ion-col>
+            </ion-row>
+        </ion-card>
+    </ion-grid>
+</ion-content>
+<ion-footer>
+    <ion-toolbar style="padding: 0px;min-height: 0px;">
+        <ion-grid style="padding: 0px;">
+            <ion-row style="padding: 0px;">
+                <ion-col style="padding: 0px;" width-50>
+                    <button class="footer-b1" ion-button full (tap)="appAuth.cart.empty()">Empty Cart</button>
+                </ion-col>
+                <ion-col style="padding: 0px;" width-50>
+                    <button class="footer-b1" ion-button full (tap)="checkout()">Checkout
+                        <ion-icon style="padding-left:10px" name="md-send"></ion-icon>
+                    </button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-toolbar>
+</ion-footer>

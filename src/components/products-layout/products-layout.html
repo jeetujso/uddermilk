@@ -1,0 +1,9 @@
+<ion-row>
+    <ion-col col-6 [ngClass]="animateClass" *ngFor="let item of animateItems; let i=index" (click)="openProduct(item)">
+        <ion-card style="margin:0 !important;">
+            <img [src]="item.Product.product_image.length > 0 ? config.productUri + item.Product.product_image : config.noImage" />
+            <div class="item-name">{{item.Product.productname}}</div>
+            <!-- <div class="price-sec"><span>{{ config.currency.sign }} {{ item.Package[0]?.price}} </span></div> -->
+        </ion-card>
+    </ion-col>
+</ion-row>

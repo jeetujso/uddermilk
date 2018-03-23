@@ -1,0 +1,88 @@
+page-one-product {
+    .prod-title {
+        color: #515151;
+        padding: 10px;
+        word-wrap: break-word;
+        background:#fff;
+        border-bottom:1px solid #4958b2;
+        text-align: center;
+        font-size: 15px;
+    }
+
+    ion-card {
+        margin-bottom: 10px;
+        box-shadow: none;
+
+        ion-row {
+            background:#fff;
+
+            ion-col {
+                ion-input {
+                    height: calc(100% - 8px);
+                    border: 1px solid #888;
+                    border-radius: 5px;
+                    margin: 4px 0;
+
+                    input {
+                        text-align: center;
+                        margin: 0 !important;
+                        width: 100% !important;
+                        height: 100%;
+                    }
+                }
+            }
+        }
+
+        &.prod-desc {
+            padding: 10px;
+            font-size: 18px;
+    
+            ion-col {
+                h3 {
+                    font-size: 18px;
+                    color: #73a42e;
+                    font-weight: 400;
+                }
+            }
+        }
+
+        &.packages {
+            padding: 10px;
+            ion-row.pkg-title {
+                ion-col {
+                    font-size: 18px;
+                    color: color($colors, primary);
+                    font-weight: 400;
+                }
+            }
+            ion-row.pkg-price {
+                ion-col.price-col {
+                    font-size: 16px;
+                }
+            }
+            ion-row.qty {
+                button.button.button-default {
+                    height: 25px !important;
+                    padding: 0 0.3em !important;
+                }
+            }
+        }
+    }
+
+    ion-list {
+        ion-item {
+            height: 25px;
+
+            &.price-sec {
+                background-color: #f4f4f4;
+                border-top: 1px solid #ccc;
+                border-bottom: 1px solid #ccc;
+
+                & > ion-note {
+                    color: #5e5e5e;
+                    font-size: 24px;
+                }
+            }
+        }
+    }
+}

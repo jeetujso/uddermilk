@@ -1,0 +1,91 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Settings</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content class="settings-content">
+    <form [formGroup]="settingsForm">
+        <ion-list [hidden]="passwordToggle">
+            <ion-item>
+                <ion-label floating>First Name</ion-label>
+                <ion-input class="input-text" [formControl]="settingsForm.controls['fname']"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="!settingsForm.controls['fname'].valid  && settingsForm.controls['fname'].touched">
+                <p class="invalid-text">First Name is required.</p>
+            </ion-item>
+            <ion-item>
+                <ion-label floating>Last Name</ion-label>
+                <ion-input class="input-text" [formControl]="settingsForm.controls['lname']"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="!settingsForm.controls['lname'].valid  && settingsForm.controls['lname'].touched">
+                <p class="invalid-text">Last Name is required.</p>
+            </ion-item>
+            <ion-item>
+                <ion-label floating>Email</ion-label>
+                <ion-input class="input-text" disabled="true" [formControl]="settingsForm.controls['email']"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label floating>Phone</ion-label>
+                <ion-input class="input-text" [formControl]="settingsForm.controls['phone']"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="!settingsForm.controls['phone'].valid  && settingsForm.controls['phone'].touched">
+                <p class="invalid-text">Please enter a valid phone number.</p>
+            </ion-item>
+            <ion-item>
+                <ion-label floating>Secondary Phone</ion-label>
+                <ion-input class="input-text" [formControl]="settingsForm.controls['sphone']"></ion-input>
+            </ion-item>
+            <ion-row>
+                <ion-col>
+                    <button ion-button full (click)="updateUser()">Update</button>
+                </ion-col>
+            </ion-row>
+        </ion-list>
+    </form>
+    <form [formGroup]="passwordForm">
+        <ion-list [hidden]="!passwordToggle">
+            <ion-item>
+                <ion-label floating>Current Password</ion-label>
+                <ion-input class="input-text" [formControl]="passwordForm.controls['oldPassword']" type="password"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="!passwordForm.controls['oldPassword'].valid  && passwordForm.controls['oldPassword'].touched">
+                <p class="invalid-text">Please enter a valid password.</p>
+            </ion-item>
+            <ion-item>
+                <ion-label floating>New Password</ion-label>
+                <ion-input class="input-text" [formControl]="passwordForm.controls['newPassword']" type="password"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="passwordForm.controls['newPassword'].hasError('required') && passwordForm.controls['newPassword'].touched">
+                <p class="invalid-text">Password cannot be empty.</p>
+            </ion-item>
+            <ion-item *ngIf="passwordForm.controls['newPassword'].hasError('invalidPassword') && !passwordForm.controls['newPassword'].hasError('required') && passwordForm.controls['newPassword'].touched">
+                Passwords must contain the following:
+                <ul class='actualList'>
+                    <li>8+ characters</li>
+                    <li>an uppercase letter</li>
+                    <li>a lowercase letter</li>
+                    <li>a symbol</li>
+                    <li>a number</li>
+                </ul>
+            </ion-item>
+            <ion-item>
+                <ion-label floating>Confirm Password</ion-label>
+                <ion-input class="input-text" [formControl]="passwordForm.controls['passwordConfirm']" type="password"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="passwordForm.controls['passwordConfirm'].hasError('required') && passwordForm.controls['passwordConfirm'].touched">
+                <p class="invalid-text">Please confirm your password.</p>
+            </ion-item>
+            <ion-item *ngIf="!passwordsMatch && passwordForm.controls['passwordConfirm'].touched && passwordForm.controls['passwordConfirm'].valid">
+                <p class="invalid-text">Passwords do not match.</p>
+            </ion-item>
+            <ion-row>
+                <ion-col>
+                    <button ion-button full [disabled]="!passwordForm.valid || !passwordsMatch" (click)="savePasswordClick($event)">Save Password</button>
+                </ion-col>
+            </ion-row>
+        </ion-list>
+    </form>
+</ion-content>

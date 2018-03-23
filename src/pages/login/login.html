@@ -1,0 +1,50 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Login</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content padding text-center>
+    <p><img src='assets/img/logo.png' style="margin-bottom:10px; border-radius: 50%; max-width: 100px;" /></p>
+    <ion-card>
+        <form [formGroup]="loginForm" novalidate padding>
+            <ion-list>
+                <ion-item>
+                    <ion-label floating>Username</ion-label>
+                    <ion-input type="text" [formControl]="loginForm.controls['email']"></ion-input>
+                </ion-item>
+                <ion-item class="error-item" *ngIf="!loginForm.controls['email'].valid  && loginForm.controls['email'].touched">
+                    <p class="invalid-text">Please enter a valid email address.</p>
+                </ion-item>
+                <ion-item>
+                    <ion-label floating>{{ formState ? 'Password' : 'OTP' }}</ion-label>
+                    <ion-input type="password" [formControl]="loginForm.controls['password']"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-checkbox [formControl]="loginForm.controls['rememberUsername']"></ion-checkbox>
+                    <ion-label>Remember username</ion-label>
+                </ion-item>
+            </ion-list>
+            <button [disabled]="!loginForm.valid" (tap)="formState ? login() : verifyOtp()" ion-button class="button-login" block>{{ formState ? 'Login' : 'Verify' }}</button>
+            <ion-row>
+                <ion-col text-left><a (tap)="forgotpass()" clear>Forgot Password </a></ion-col>
+                <ion-col text-right><a (tap)="register()" clear>Register</a></ion-col>
+            </ion-row>
+            <!-- <ion-row>
+                <ion-col text-right><a (tap)="changeFormState()"> {{ formState ? 'Verify Account' : 'Back to Login' }}</a></ion-col>
+            </ion-row> -->
+        </form>
+    </ion-card>
+
+    <!--<ion-row style="padding-bottom: 13px;">
+        <ion-col>
+            <button text-lowercase ion-button icon-right color="dark" outline>Login with
+                <ion-icon name="logo-facebook"></ion-icon>
+            </button>
+        </ion-col>
+        <ion-col>
+            <button text-lowercase ion-button icon-right color="dark" outline>Login with
+                <ion-icon name="logo-twitter"></ion-icon>
+            </button>
+        </ion-col>
+    </ion-row>-->
+</ion-content>
