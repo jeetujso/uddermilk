@@ -57,13 +57,19 @@ export class HomePage {
     }
 
     openCategory(category) {
-        if(category.hasSubCategory && category.hasSubCategory > 0) {
+        if(this.selectedTab == 'animal') {
             console.log('go to sub cat page');
-            this.navCtrl.push(SubCatPage, { category: category.id, catTitle: category.category_name });
+            // Animal
+            this.navCtrl.push(SubCatPage, {
+                category: category.Animal.id,
+                catTitle: category.Animal.animalname
+            });
         }
         else {
-            let key = (this.selectedTab == 'animal') ? 'Animal' : 'Category';
-            this.navCtrl.push(ProductListPage, { category: category[key].id, catTitle: category[key][key.toLowerCase()+'name'], subCat: false });
+            this.navCtrl.push(ProductListPage, { 
+                category: category.Category.id,
+                catTitle: category.Category.categoryname
+            });
         }
     }
 

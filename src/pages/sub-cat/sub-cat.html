@@ -6,9 +6,9 @@
 
 <ion-content>
     <ion-row align-items-center [ngClass]="animateClass">
-        <ion-col col-4 text-center *ngFor="let item of subCats; let i=index " (click)="listProducts(item)">
-            <img [src]="config.subCatUri + item.img" />
-            <span>{{item.sub_category_name}}</span>
+        <ion-col col-4 text-center *ngFor="let item of subCats; let i=index " (click)="openProduct(item.Produce)">
+            <!-- <img [src]="config.subCatUri + item.Produce.img" /> -->
+            <span>{{item.Produce.name}}</span>
         </ion-col>
     </ion-row>
 </ion-content>

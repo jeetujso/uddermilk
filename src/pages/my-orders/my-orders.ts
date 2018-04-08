@@ -1,7 +1,6 @@
 import { Component, trigger, state, style, transition, animate, keyframes } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { NavController } from 'ionic-angular';
-import { WriteReviewPage } from '../../pages/write-review/write-review';
 import { AppAuth } from '../../providers/app-auth';
 import { AppUi } from '../../providers/app-ui';
 import { Config } from '../../providers/config';
@@ -67,11 +66,6 @@ export class MyOrdersPage {
                 this.appUi.showDialog('Unexpected error occured...', 'Error');
             }
         );
-    }
-    // to provide Review And Rating
-    reviewsratings() {
-        var newObj = { name: "Fashion Line Casual Short Sleeve Solid Women's Black Top", rating: 3.5, reviews: 23 }
-        this.navCtrl.push(WriteReviewPage, { item: newObj });
     }
 
     promptOrder(oid) {

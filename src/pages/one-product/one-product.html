@@ -11,35 +11,10 @@
     <ion-card>
         <ion-row>
             <ion-col>
-                <img [src]="image" imageViewer />
+                <img [src]="image"/>
             </ion-col>
-            <!-- <ion-col width-50>
-                <ion-row class="qty">
-                    <ion-col col-4>
-                        <button class="minus" (tap)="decrement()" ion-button block><ion-icon name="remove"></ion-icon></button>
-                    </ion-col>
-                    <ion-col col-4>
-                        <ion-input type="number" [(ngModel)]="qty"></ion-input>
-                    </ion-col>
-                    <ion-col col-4>
-                        <button class="plus" (tap)="increment()" ion-button block><ion-icon name="add"></ion-icon></button>
-                    </ion-col>
-                </ion-row>
-            </ion-col> -->
         </ion-row>
     </ion-card>
-    <!-- <ion-list>
-        <ion-item class="price-sec">
-            <ion-note item-left>
-                <span>{{ config.currency.sign }} {{ item?.price }}</span>
-            </ion-note>
-            <ion-note item-right *ngIf="appHttp.appAuth.isLoggedIn()">
-                <button ion-button icon-only clear (tap)="toggleWishlist()">
-                    <ion-icon style="color: #ff8585;" [name]="item?.wishlist ? 'heart' : 'heart-outline'"></ion-icon>
-                </button>
-            </ion-note>
-        </ion-item>
-    </ion-list> -->
     <hr/>
     <ion-card class="prod-desc">
         <ion-row>

@@ -17,7 +17,7 @@
         <ion-col style="border-right: 0;" align-items-center [class.active]="selectedTab == 'animal'" (click)="selectedTab = 'animal'">Animals</ion-col>
     </ion-row>
     <ion-row class="categories" [hidden]="selectedTab != 'category'">
-        <ion-col col-12 [ngClass]="animateClass" *ngFor="let item of animateItems; let i=index" (tap)="openCategory(item)">
+        <ion-col col-12 col-md-6 [ngClass]="animateClass" *ngFor="let item of animateItems; let i=index" (tap)="openCategory(item)">
             <ion-card>
                 <img [src]="item.Category.categoryimage.length > 0 ? config.categoryUri + item.Category.categoryimage : 'http://uddermilk.com/img/image_not_found.jpg'" />
                 <p>{{item.Category.categoryname}}</p>
@@ -25,7 +25,7 @@
         </ion-col>
     </ion-row>
     <ion-row class="categories" [hidden]="selectedTab != 'animal'">
-        <ion-col col-12 [ngClass]="animateClass" *ngFor="let item of animals; let i=index" (tap)="openCategory(item)">
+        <ion-col col-12 col-md-6 [ngClass]="animateClass" *ngFor="let item of animals; let i=index" (tap)="openCategory(item)">
             <ion-card>
                 <img [src]="item.Animal.animalimage.length > 0 ? config.animalUri + item.Animal.animalimage : config.noImage" />
                 <p>{{item.Animal.animalname}}</p>

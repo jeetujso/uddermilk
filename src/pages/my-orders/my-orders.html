@@ -15,7 +15,6 @@
                 <ion-col col-6 class="heading">{{ order.Orderdetail.length }} Items</ion-col>
                 <ion-col col-6 class="margin-bottom: 0px;font-size: 16px;">
                     <button ion-button small outline block>{{ order.Ordermaster.orderdate * 1000 | date }}</button>
-                    <button *ngIf="config.showReviewRating" ion-button small outline  block (click)="reviewsratings()">Rate and review</button>
                 </ion-col>
                 <ion-col col-6 (tap)="order.showDetail = !order.showDetail">
                     <span *ngIf="!order.showDetail"> Show Details </span>

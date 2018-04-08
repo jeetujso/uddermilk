@@ -51,7 +51,7 @@ export class MyApp {
             this.appAuth.loadStoredUser().then((resp) => {
                 this.appUi.showToast(`Welcome ${resp.fname}!`);
             }, (err) => {
-                console.log(err);// new comment
+                console.log(err);
             });
 
             // Hardware back button action on android

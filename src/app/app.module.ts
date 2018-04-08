@@ -11,8 +11,6 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 
 import { ProductListPage } from '../pages/product-list/product-list';
-import { ReviewsRatingsPage } from '../pages/reviews-ratings/reviews-ratings';
-import { WriteReviewPage } from '../pages/write-review/write-review';
 import { OneProduct } from '../pages/one-product/one-product';
 import { MyOrdersPage } from '../pages/my-orders/my-orders';
 import { MyWishlistPage } from '../pages/my-wishlist/my-wishlist';
@@ -34,13 +32,10 @@ import { AppAuth } from '../providers/app-auth';
 import { Config } from '../providers/config';
 
 //Components
-import { ProductsLayoutComponent } from '../components/products-layout/products-layout';
 import { CarouselComponent } from '../components/carousel/carousel';
-import { DealsComponent } from '../components/deals/deals';
-import { CartComponent } from '../components/cart/cart';
+// import { CartComponent } from '../components/cart/cart';
 import { CategoryTileComponent } from '../components/category-tile/category-tile';
 
-import { Ionic2RatingModule } from 'ionic2-rating/';
 import { StaticPage } from '../pages/static-page/static-page';
 
 
@@ -49,8 +44,6 @@ let pages = [
     MyApp,
     HomePage,
     ProductListPage,
-    ReviewsRatingsPage,
-    WriteReviewPage,
     OneProduct,
     MyOrdersPage,
     MyWishlistPage,
@@ -68,7 +61,7 @@ let pages = [
 ];
 
 export function declarations() {
-  return [pages,ProductsLayoutComponent,CarouselComponent,CategoryTileComponent,DealsComponent,CartComponent];
+  return [pages,CarouselComponent,CategoryTileComponent];
 }
 
 export function entryComponents() {
@@ -85,7 +78,7 @@ export function providers() {
 @NgModule({
   declarations: declarations(),
   imports: [
-    IonicModule.forRoot(MyApp),BrowserModule,HttpModule,BrowserAnimationsModule,Ionic2RatingModule
+    IonicModule.forRoot(MyApp),BrowserModule,HttpModule,BrowserAnimationsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: entryComponents(),

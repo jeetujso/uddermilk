@@ -1,6 +1,5 @@
 import { Component, trigger, state, style, transition, animate, keyframes, ElementRef } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { ReviewsRatingsPage } from '../../pages/reviews-ratings/reviews-ratings';
 import { Config } from '../../providers/config';
 import { AppUi } from '../../providers/app-ui';
 import { AppHttp } from '../../providers/app-http';
@@ -33,22 +32,13 @@ export class OneProduct {
         private appUi: AppUi, private appAuth: AppAuth) {
         
         this.item = navParams.get('product');
-        //to show bydefault image while opening single product
+        //to show by default image while opening single product
         this.image = this.item.Product.product_image.length > 0 ? this.config.productUri + this.item.Product.product_image : this.config.noImage;
 
         for(let pkg of this.item.Package){
             pkg.qty = 1;
         }
     }
-
-    //change the image for particular product
-    /* changeImage(image) {
-        this.image = this.config.productUriAux + image;
-    }
-
-    resetImage() {
-        this.image = this.item.Product.product_image.length > 0 ? this.config.productUri + this.item.Product.product_image : this.config.noImage;
-    } */
 
     buyNow() {
         //this.addToCart();

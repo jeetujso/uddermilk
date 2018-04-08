@@ -193,7 +193,7 @@ export class RegisterPage {
                 console.log(res);
                 if(res.url == 'http://uddermilk.com/'){
                     browser.close();
-                    this.appUi.showDialog('Thank you for completing the registration process!');
+                    this.appUi.showDialog('Thank you for completing the registration process! Your ID will be reviewed and activated by admin.', 'Success!');
                     this.nav.setRoot(LoginPage, { userName: this.newUser.email });
                 }
             }, (err) =>{
