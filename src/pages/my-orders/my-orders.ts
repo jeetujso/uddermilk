@@ -68,10 +68,10 @@ export class MyOrdersPage {
         );
     }
 
-    promptOrder(oid) {
+    promptOrder(oid, pid) {
         this.appUi.alertCtrl.create({
             title: 'Cancel Order',
-            message: 'Are you sure you want to cancel this order?',
+            message: 'Are you sure you want to cancel this item?',
             buttons: [
                 {
                     text: 'No',
@@ -83,32 +83,28 @@ export class MyOrdersPage {
                 {
                     text: 'Yes',
                     handler: () => {
-                        this.cancelOrder(oid); //Cancel Order
+                        this.cancelOrder(oid, pid); //Cancel Order
                     }
                 }
             ]
         }).present();
     }
 
-    cancelOrder(oid) {
+    cancelOrder(oid, pid) {
         console.log('cancel order');
         this.appUi.showLoading();
+        let url = this.config.uriApi+'removeCustomerproduct?user_id='+this.appAuth.currentUser.userId;
+        url = url + '&token='+this.appAuth.currentUser.authToken+'&id='+oid+'&pid='+pid;
 
-        this.appAuth.appHttp.sendRequest('post', this.config.uri+'cancel-order', { order_id: oid }).subscribe(
-            (res) => {
+        this.http.request(url).map(res => res.json()).subscribe(
+            res => {
                 console.log(res);
-                if(res.status == 'ok') {
-                    this.appUi.dismissLoading().then(() => {
-                        this.fetchOrders();
-                    });
-                    this.appUi.showDialog(res.msg, 'Cancel Order');
-                }
-                else {
-                    this.appUi.dismissLoading();
-                    this.appUi.showDialog(res.msg, 'Error');
-                }
+                this.appUi.dismissLoading().then(() => {
+                    this.fetchOrders();
+                });
+                this.appUi.showDialog(res.msg, 'Cancel Order');
             },
-            (err) => {
+            err=> {
                 console.log(err);
                 this.appUi.dismissLoading();
                 this.appUi.showDialog('Unexpected error occured...', 'Error');
