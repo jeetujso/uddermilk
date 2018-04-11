@@ -1,6 +1,6 @@
 import { Component, trigger, state, style, transition, animate, keyframes } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { NavController } from 'ionic-angular';
+import { NavController, AlertController } from 'ionic-angular';
 import { AppAuth } from '../../providers/app-auth';
 import { AppUi } from '../../providers/app-ui';
 import { Config } from '../../providers/config';
@@ -41,7 +41,7 @@ export class MyOrdersPage {
     item: any;
 
     constructor(public navCtrl: NavController, private appAuth: AppAuth, private config: Config, private appUi: AppUi,
-        private http: Http) {
+        private http: Http, private alertCtrl: AlertController) {
         this.fetchOrders();
     }
 
@@ -108,6 +108,68 @@ export class MyOrdersPage {
                 console.log(err);
                 this.appUi.dismissLoading();
                 this.appUi.showDialog('Unexpected error occured...', 'Error');
+            }
+        );
+    }
+
+    editOrder(lineitem, ordermaster) {
+        console.log('edit order', lineitem);
+        // this.updateOrder(lineitem);
+        let alert = this.alertCtrl.create({
+            title: 'Update Order',
+            subTitle: lineitem.packagename,
+            message: 'Please enter new product quantity',
+            inputs: [
+                {
+                    name: 'qty',
+                    placeholder: 'New Quantity',
+                    type: 'number',
+                    value: lineitem.quantity
+                }
+            ],
+            buttons: [
+                {
+                    text: 'Cancel',
+                    role: 'cancel',
+                    handler: data => {
+                        console.log('Cancel clicked');
+                    }
+                },
+                {
+                    text: 'Update',
+                    handler: data => {
+                        console.log(data, data.qty);
+                        this.updateOrder(ordermaster, lineitem, data.qty);
+                    }
+                }
+            ]
+        });
+        alert.present();
+    }
+
+    updateOrder(ordermaster, lineitem, newQty) {
+        console.log(ordermaster, lineitem, newQty);
+        this.appUi.showLoading();
+
+        let url = this.config.uriApi + 'editproduct?token='+ this.appAuth.currentUser.authToken;
+        url += '&user_id='+this.appAuth.currentUser.userId+'&id='+lineitem.id+'&quantity='+newQty;
+        this.http.get(url).map(res => res.json()).subscribe(
+            res => {
+                console.log(res);
+                this.appUi.dismissLoading();
+                if(res.status == 'ok') {
+                    ordermaster.totalamount = res.grandtotal;
+                    lineitem.quantity = newQty;
+                    this.appUi.showToast(res.msg);
+                }
+                else{
+                    this.appUi.showToast('Error Occurred! Please try again...');
+                }
+            },
+            err => {
+                console.log(err);
+                this.appUi.dismissLoading();
+                this.appUi.showToast('Unexpected Error Occurred! Please try again...');
             }
         );
     }

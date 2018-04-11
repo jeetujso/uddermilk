@@ -25,7 +25,9 @@
                 </ion-col>
             </ion-row>
         </ion-grid>
-        <ion-grid *ngIf="order.showDetail">
+        
+        <ion-grid *ngIf="order.showDetail && order.Ordermaster.orderstatus == '1'">
+                
             <ion-row style="border-bottom: 1px solid #ccc;">
                 <ion-col col-12>Order Details:</ion-col>
                 <ion-col col-6>Product</ion-col>
@@ -38,9 +40,28 @@
                 <ion-col col-2>{{ lineItem.quantity }}</ion-col>
                 <ion-col col-2>{{ lineItem.totalprice }}</ion-col>
                 <ion-col col-2 no-padding>
-                    <ion-icon name="create" (tap)="edit(lineItem.id)"></ion-icon>
+                    <ion-icon name="create" (tap)="editOrder(lineItem, order.Ordermaster)"></ion-icon>
                     <ion-icon name="trash" (tap)="promptOrder(lineItem.id, lineItem.productid)"></ion-icon>
                 </ion-col>
+            </ion-row>
+            <ion-row style="border-top: 1px solid #ccc;">
+                <ion-col col-8>Total</ion-col><ion-col col-4>{{ order.Ordermaster.totalamount }}</ion-col>
+            </ion-row>
+            <button ion-button block (tap)="promptOrder(order.id)" *ngIf="order.status == 0"> Cancel Order </button>
+        </ion-grid>
+        
+        <ion-grid *ngIf="order.showDetail && order.Ordermaster.orderstatus != '1'">
+                
+            <ion-row style="border-bottom: 1px solid #ccc;">
+                <ion-col col-12>Order Details:</ion-col>
+                <ion-col col-8>Product</ion-col>
+                <ion-col col-2>Qty</ion-col>
+                <ion-col col-2>Price</ion-col>
+            </ion-row>
+            <ion-row no-padding *ngFor="let lineItem of order.Orderdetail">
+                <ion-col col-8>{{ lineItem.packagename }}</ion-col>
+                <ion-col col-2>{{ lineItem.quantity }}</ion-col>
+                <ion-col col-2>{{ lineItem.totalprice }}</ion-col>
             </ion-row>
             <ion-row style="border-top: 1px solid #ccc;">
                 <ion-col col-10>Total</ion-col><ion-col col-2>{{ order.Ordermaster.totalamount }}</ion-col>
