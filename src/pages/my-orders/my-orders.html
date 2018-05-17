@@ -14,11 +14,11 @@
             <ion-row>
                 <ion-col col-6 class="heading">{{ order.Orderdetail.length }} Items</ion-col>
                 <ion-col col-6 class="margin-bottom: 0px;font-size: 16px;">
-                    <button ion-button small outline block>{{ order.Ordermaster.orderdate * 1000 | date }}</button>
+                    <span>{{ order.Ordermaster.orderdate * 1000 | date }}</span>
                 </ion-col>
                 <ion-col col-6 (tap)="order.showDetail = !order.showDetail">
-                    <span *ngIf="!order.showDetail"> Show Details </span>
-                    <span *ngIf="order.showDetail"> Hide Details </span>
+                    <button ion-button small *ngIf="!order.showDetail"> Show Details </button>
+                    <button ion-button small *ngIf="order.showDetail"> Hide Details </button>
                 </ion-col>
                 <ion-col col-6 text-right>
                     <span> Status: {{ config.orderStatus[order.Ordermaster.orderstatus] }} </span>
