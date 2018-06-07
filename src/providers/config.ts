@@ -19,7 +19,7 @@ export class Config {
 	public subCatUri = "http://www.topflightinstant.com/app/public/assets/subCategories/";
 	public showSearch = false;
 	public currency = { name: 'USD', sign: '$'};
-	public orderStatus = ['Open', 'Closed', 'Delivered'];
+	public orderStatus = ['', 'Open', 'Closed', 'Delivered'];
 
 	public noImage = "http://uddermilk.com/img/image_not_found.jpg";
 

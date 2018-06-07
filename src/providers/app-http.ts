@@ -81,7 +81,6 @@ export class AppHttp {
                     }
                     else {
                         observer.error(body);
-                        observer.complete();
                     }
                 },
                 err=> {
@@ -91,7 +90,6 @@ export class AppHttp {
                     }
                     else {
                         observer.error(err);
-                        observer.complete();
                     }
                 }
             );
