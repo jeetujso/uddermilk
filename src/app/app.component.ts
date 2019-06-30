@@ -127,7 +127,7 @@ export class MyApp {
         else if (page.title == 'About Us' || page.title == 'Privacy Policy' || page.title == 'Terms of Service' || page.title == 'FAQs') {
             this.nav.setRoot(StaticPage, {id: page.component, title: page.title});
         }
-        else if (this.nav.getActive().name != page.component.name) { // If we are already on this page do nothing
+        else { //if (this.nav.getActive().name != page.component.name) { // If we are already on this page do nothing
             this.nav.setRoot(page.component);
         }
     }

@@ -35,7 +35,6 @@ export class Contact {
         console.log(formName, formEmail, formMsg);
         console.log('Contact Us submit action');
 
-        // this.http.post(this.config.uri + 'user-query', {name: formName, email: formEmail, message: formMsg}).map(res => res.json()).subscribe(
         this.http.get(this.config.uriApi + 'contactus?name='+formName+'&email='+formEmail+'&comments='+formMsg).map(res => res.json()).subscribe(
             (res) => {
                 console.log(res);

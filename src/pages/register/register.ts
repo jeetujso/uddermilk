@@ -186,12 +186,12 @@ export class RegisterPage {
     }
 
     private showAgreement(userid: any) {
-        let browser = this.iab.create('http://uddermilk.com/customers/agreement/'+userid, '_blank', {location: 'no'});
+        let browser = this.iab.create('https://uddermilk.com/customers/agreement/'+userid, '_blank', {location: 'no'});
 
         browser.on('loadstop').subscribe(
             (res) => {
                 console.log(res);
-                if(res.url == 'http://uddermilk.com/'){
+                if(res.url == 'https://uddermilk.com/'){
                     browser.close();
                     this.appUi.showDialog('Thank you for completing the registration process! Your ID will be reviewed and activated by admin.', 'Success!');
                     this.nav.setRoot(LoginPage, { userName: this.newUser.email });
@@ -204,7 +204,7 @@ export class RegisterPage {
         browser.on('exit').subscribe(
             (res) => {
                 console.log(res);
-                this.http.get('http://uddermilk.com/webservices/checkAgrement?user_id='+userid).pipe(
+                this.http.get('https://uddermilk.com/webservices/checkAgrement?user_id='+userid).pipe(
                     map(r => r.json())
                 ).subscribe(
                     (r) => {

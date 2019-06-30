@@ -70,7 +70,7 @@ export class AppAuth {
             return Observable.create(observer => {
 
                 let data = { "email": username, "otp": password };
-                let url = `${this.config.uri}verify-otp`;
+                let url = `${this.config.uriApi}verify-otp`;
 
                 this.appHttp.sendRequest('post', url, data, '' , true).subscribe(
                     body => {
@@ -259,7 +259,7 @@ export class AppAuth {
 
     public getAddresses(): Observable<AuthenticationResponse> {
         return Observable.create(observer => {
-            let url = `${this.config.uri}address`;
+            let url = `${this.config.uriApi}address`;
             let data = '';
 
             let response = this.appHttp.sendRequest('get', url, data).subscribe(
@@ -288,7 +288,7 @@ export class AppAuth {
     public updateBillingAddr(first_name='', last_name='', address_line1='', address_line2='', city='', zipcode='',
         state='', country='', phone='', addrType='billing'): Observable<AuthenticationResponse> {
         return Observable.create(observer => {
-            let url = `${this.config.uri}${addrType}-address`;
+            let url = `${this.config.uriApi}${addrType}-address`;
             let data = {
                 "first_name": first_name,
                 "last_name": last_name,
@@ -401,7 +401,7 @@ export class AppAuth {
 
     public getUserWishlist (): Promise<any> {
         return new Promise((resolve, reject) => {
-            this.appHttp.sendRequest('get', `${this.config.uri}my-wishlists`).subscribe(
+            this.appHttp.sendRequest('get', `${this.config.uriApi}my-wishlists`).subscribe(
                 (data: any) => {
                     if(data.status == 'ok') {
                         return resolve(data.wishlists);
