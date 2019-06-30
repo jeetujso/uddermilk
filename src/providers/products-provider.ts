@@ -25,7 +25,7 @@ export class ProductsProvider {
     }
 
     getFeatured(limit = 5) {
-        return this.http.get(`${this.config.uri}featured-products?limit=${limit}`).map((res) => res.json());
+        return this.http.get(`${this.config.uriApi}featured-products?limit=${limit}`).map((res) => res.json());
     }
 
 }
