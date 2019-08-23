@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { CartPage } from '../../pages/cart/cart';
 import { ProductListPage } from '../../pages/product-list/product-list';
 import { SubCatPage } from '../../pages/sub-cat/sub-cat';
@@ -8,15 +8,14 @@ import { CategoryProvider } from '../../providers/category-provider';
 import { ProductsProvider } from '../../providers/products-provider';
 import { Config } from '../../providers/config';
 import { AppUi } from '../../providers/app-ui';
-import { CatPage } from '../cat-page/cat';
 
 @Component({
-    selector: 'page-home',
-    templateUrl: 'home.html',
+    selector: 'page-cat',
+    templateUrl: 'cat.html',
     providers: [CategoryProvider, ProductsProvider]
 })
 
-export class HomePage {
+export class CatPage {
 
     public categories:Array<any> = [];
     public featured:Array<any> = [];
@@ -24,15 +23,22 @@ export class HomePage {
     private animateItems = [];
     private animateClass: { 'zoom-in': true };
     private selectedTab = 'category';
+    catId: any;
+    catName: string = '';
+    public hasSubCat: any;
 
-    constructor(public navCtrl: NavController, private categoryProvider: CategoryProvider, private productsProvider: ProductsProvider, private config: Config, private appUi: AppUi) {
+    constructor(public navCtrl: NavController, private categoryProvider: CategoryProvider, 
+        private productsProvider: ProductsProvider, private config: Config, private appUi: AppUi,
+        public navParams: NavParams) {
+        this.catId = this.navParams.data.category;
+        this.catName = this.navParams.data.catTitle;
+        this.hasSubCat = this.navParams.data.hasSubcategory;
     }
 
-    ngAfterViewInit() {
+    ngOnInit() {
         this.appUi.showLoading();
-        this.categoryProvider.getCategories().subscribe((res) => {
+        this.productsProvider.fetchSubCat(this.catId).subscribe((res)=> {
             this.categories = res.categories;
-            this.animals = res.animals;
             let len = this.categories.length;
             for (let i = 0; i < len; i++) {
                 setTimeout(() => {
@@ -44,17 +50,6 @@ export class HomePage {
             console.log(err);
             this.appUi.dismissLoading();
         });
-
-        /* this.productsProvider.getFeatured(6).subscribe((res) => {
-            console.log(res);
-            this.featured = res;
-        }, (err) => {
-            console.log(err);
-        }); */
-    }
-
-    openCart() {
-        this.navCtrl.push(CartPage);
     }
 
     openCategory(category) {
@@ -82,9 +77,5 @@ export class HomePage {
                 });
             }
         }
-    }
-
-    openProduct(pid) {
-        this.navCtrl.push(OneProduct, { pid: pid });
     }
 }

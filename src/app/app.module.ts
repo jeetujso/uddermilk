@@ -37,12 +37,14 @@ import { CarouselComponent } from '../components/carousel/carousel';
 import { CategoryTileComponent } from '../components/category-tile/category-tile';
 
 import { StaticPage } from '../pages/static-page/static-page';
+import { CatPage } from '../pages/cat-page/cat';
 
 
 
 let pages = [
     MyApp,
     HomePage,
+    CatPage,
     ProductListPage,
     OneProduct,
     MyOrdersPage,

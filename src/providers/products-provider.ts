@@ -24,6 +24,11 @@ export class ProductsProvider {
         return this.http.get(`${this.config.uriApi}allAnimals?animal_id=${animalId}`).map(res => res.json());
     }
 
+    fetchSubCat(catId) {
+        // https://www.uddermilk.com/webservices/subCategories/33
+        return this.http.get(`${this.config.uriApi}subCategories/${catId}`).map(res => res.json());
+    }
+
     getFeatured(limit = 5) {
         return this.http.get(`${this.config.uriApi}featured-products?limit=${limit}`).map((res) => res.json());
     }

@@ -17,10 +17,12 @@ export class SubCatPage {
     catId: any;
     catName = '';
     subCats:Array<any> = [];
+    public hasSubCat: any;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private productsProvider: ProductsProvider, public appUi: AppUi, private config: Config) {
         this.catId = this.navParams.data.category;
         this.catName = this.navParams.data.catTitle;
+        this.hasSubCat = this.navParams.data.hasSubcategories;
 
         this.initSubCat();
     }
@@ -43,7 +45,10 @@ export class SubCatPage {
             (res) => {
                 console.log(res.products);
                 this.appUi.dismissLoading();
-                this.navCtrl.push(OneProduct, { product: res.products[0], animal: true });
+                if(res.products.length > 0) 
+                    this.navCtrl.push(OneProduct, { product: res.products[0], animal: true });
+                else 
+                    this.appUi.showDialog("No products found for this category!", "Error");
             },
             err => {
                 console.log(err);
