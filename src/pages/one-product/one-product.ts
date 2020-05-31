@@ -1,8 +1,7 @@
-import { Component, trigger, state, style, transition, animate, keyframes, ElementRef } from '@angular/core';
+import { Component, trigger, state, style, transition, animate, keyframes } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Config } from '../../providers/config';
 import { AppUi } from '../../providers/app-ui';
-import { AppHttp } from '../../providers/app-http';
 import { AppAuth } from '../../providers/app-auth';
 import { CartPage } from '../../pages/cart/cart';
 
@@ -28,7 +27,7 @@ export class OneProduct {
     item: any;
     qty: number = 1;
 
-    constructor(private appHttp: AppHttp, public nav: NavController, navParams: NavParams, private config: Config, 
+    constructor(public nav: NavController, navParams: NavParams, private config: Config, 
         private appUi: AppUi, private appAuth: AppAuth) {
         
         this.item = navParams.get('product');

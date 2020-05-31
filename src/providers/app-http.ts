@@ -17,22 +17,20 @@ import { LoginPage } from '../pages/login/login';
 export class AppHttp {
 
     public appAuth: AppAuth;
-    private handler = "users/refresh";
 
     constructor(public injector: Injector, public platform: Platform, public config: Config, public http: Http, private app: App) {
         this.platform.ready().then(() => {
-            this.appAuth = injector.get(AppAuth)
+            this.appAuth = this.injector.get(AppAuth)
         });
     }
 
-
-    /*
+    /*******************************************************************
         method - GET, PUT, POST etc.
         headers - Object containing any headers to be sent
         url - Full url to acccess
         data - payload to send (if not a string, it is coverted to JSON)
         returns a {Observable}
-    */
+    ********************************************************************/
     public sendRequest(method: string, url: string, data: any = "", headers?: any, anonymous: boolean = false): Observable<any> {
         var currentObj = this;
 

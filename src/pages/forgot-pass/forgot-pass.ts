@@ -1,12 +1,11 @@
-import { Component, Pipe, PipeTransform } from '@angular/core';
+import { Component } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
-import { NavController, Platform } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidateEmail } from '../../providers/app-validators';
 import { AppUi } from '../../providers/app-ui';
 import { Config } from '../../providers/config';
-import { LoginPage } from '../../pages/login/login';
 
 @Component({
     selector: 'page-forgot-pass',
@@ -16,10 +15,10 @@ import { LoginPage } from '../../pages/login/login';
 export class ForgotPassPage {
     loginForm: FormGroup;
 
-    constructor(private platform: Platform, private builder: FormBuilder, private nav: NavController, public appUi: AppUi,
+    constructor(private builder: FormBuilder, private nav: NavController, public appUi: AppUi,
         private config: Config, private http: Http) {
         
-        this.loginForm = builder.group({
+        this.loginForm = this.builder.group({
             email: ['', [Validators.required, ValidateEmail]],
         });
     }
