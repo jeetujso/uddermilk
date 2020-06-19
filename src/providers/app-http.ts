@@ -62,9 +62,9 @@ export class AppHttp {
 
             // Add our headers (Content & (optional Bearer token))
             options.headers.append('Content-Type', 'application/json');
-            if (!anonymous) {
-                options.headers.append('Authorization', `Bearer ${currentObj.appAuth.currentUser.authToken}`);
-            }
+            // if (!anonymous) {
+            //     options.headers.append('Authorization', `Bearer ${currentObj.appAuth.currentUser.authToken}`);
+            // }
 
             // Make the Request
             this.http.request(url, options).subscribe(

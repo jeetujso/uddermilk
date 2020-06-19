@@ -17,7 +17,6 @@ export class LoginPage {
     loginForm: FormGroup;
     isNewRegistration: boolean;
     appAuth: AppAuth;
-    formState: boolean = true;
 
     constructor(@Inject(forwardRef(() => AppAuth)) appAuth, private platform: Platform, private builder: FormBuilder, private nav: NavController,
         private appUi: AppUi, private navParams: NavParams, public appPush: AppPush) {
@@ -63,15 +62,12 @@ export class LoginPage {
         let password = this.loginForm.controls.password.value;
         let rememberUser = this.loginForm.controls.rememberUsername.value;
 
-        //console.log(email, password, rememberUser);
-
         this.appAuth.login(email, password, rememberUser).subscribe((resp) => {
-            //console.log(resp);
             this.appUi.dismissLoading();
             if(resp.success === true) {
                 this.appUi.showToast('Welcome ' + this.appAuth.currentUser.fname + '!');
                 
-                this.appPush.updateUserForPush(email).catch((err)=> {
+                this.appPush.updateUserForPush(this.appAuth.currentUser.userId).catch((err)=> {
                     console.log(err);
                 }); 
                 
@@ -90,10 +86,6 @@ export class LoginPage {
             this.appUi.dismissLoading();
             this.appUi.showDialog(err.message);
         });
-    }
-
-    changeFormState() {
-        this.formState = !this.formState;
     }
 
 }
