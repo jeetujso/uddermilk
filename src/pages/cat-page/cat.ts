@@ -19,13 +19,13 @@ export class CatPage {
 
     public categories:Array<any> = [];
     public featured:Array<any> = [];
-    private animals:Array<any> = [];
-    private animateItems = [];
-    private animateClass: { 'zoom-in': true };
-    private selectedTab = 'category';
+    // animals:Array<any> = [];
+    animateItems = [];
+    animateClass: { 'zoom-in': true };
+    selectedTab = 'category';
     catId: any;
     catName: string = '';
-    public hasSubCat: any;
+    hasSubCat: any;
 
     constructor(public navCtrl: NavController, private categoryProvider: CategoryProvider, 
         private productsProvider: ProductsProvider, private config: Config, private appUi: AppUi,

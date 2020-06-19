@@ -63,37 +63,6 @@ export class AppAuth {
         this.cart.init();
     }
 
-    public verifyOtp(username: string, password: string): Observable<AuthenticationResponse> {
-        if (username === undefined || password === undefined) {
-            return Observable.throw("Please provide credentials");
-        } else {
-            return Observable.create(observer => {
-
-                let data = { "email": username, "otp": password };
-                let url = `${this.config.uriApi}verify-otp`;
-
-                this.appHttp.sendRequest('post', url, data, '' , true).subscribe(
-                    body => {
-                        observer.next(new AuthenticationResponse(true, "", body));
-                        observer.complete();
-                    },
-                    err => {
-                        try {
-                            let errorObject = err.json();
-                            observer.next(new AuthenticationResponse(false, '', errorObject));
-                        }
-                        catch(e) {
-                            console.log("Non-json response found!");
-                            observer.error(new AuthenticationResponse(false, 'Unexpected error occurred! Please try again...', err));
-                        }
-
-                        observer.complete();
-                    }
-                );
-            });
-        }
-    }
-
     public login(username: string, password: string, rememberUsername = false): Observable<AuthenticationResponse> {
         if (username === undefined || password === undefined) {
             return Observable.throw("Please provide credentials");
@@ -262,7 +231,7 @@ export class AppAuth {
             let url = `${this.config.uriApi}address`;
             let data = '';
 
-            let response = this.appHttp.sendRequest('get', url, data).subscribe(
+            this.appHttp.sendRequest('get', url, data).subscribe(
                 data => {
                     console.log(data);
                     observer.next(new AuthenticationResponse(true, "", data));
@@ -301,7 +270,7 @@ export class AppAuth {
                 "phone": phone
             };
 
-            let response = this.appHttp.sendRequest('post', url, data).subscribe(
+            this.appHttp.sendRequest('post', url, data).subscribe(
                 data => {
                     console.log(data);
                     observer.next(new AuthenticationResponse(true, "", data));
@@ -334,7 +303,7 @@ export class AppAuth {
                 "user_id": this.currentUser.userId
             };
 
-            let response = this.http.post(url, data).map(res => res.json()).subscribe(
+            this.http.post(url, data).map(res => res.json()).subscribe(
                 data => {
                     console.log(data);
                     observer.next(new AuthenticationResponse(true, "", data));
@@ -372,7 +341,7 @@ export class AppAuth {
                     user_id: this.currentUser.userId
                 };
 
-                let response = this.http.post(url, data).subscribe(
+                this.http.post(url, data).subscribe(
                     data => {
                         observer.next(new AuthenticationResponse(true, "", data));
                         observer.complete();

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "370200414318",
+    "firebase_url": "https://uddermilk-197008.firebaseio.com",
+    "project_id": "uddermilk-197008",
+    "storage_bucket": "uddermilk-197008.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:370200414318:android:350700059a70e29319fe7f",
+        "android_client_info": {
+          "package_name": "com.uddermilk.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "370200414318-vm7c46cqj24oar8u5tns8n8g0coiglvh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDTnXOoY2vv5ijOdfuGI2laWO0meoV7Xd8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "370200414318-vm7c46cqj24oar8u5tns8n8g0coiglvh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

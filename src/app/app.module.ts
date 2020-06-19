@@ -4,6 +4,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { Push } from '@ionic-native/push';
 import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
@@ -35,11 +36,12 @@ import { Config } from '../providers/config';
 import { CarouselComponent } from '../components/carousel/carousel';
 // import { CartComponent } from '../components/cart/cart';
 import { CategoryTileComponent } from '../components/category-tile/category-tile';
+import { AppImg } from '../components/app-img/app-img';
 
 import { StaticPage } from '../pages/static-page/static-page';
 import { CatPage } from '../pages/cat-page/cat';
-
-
+import { AppPush } from '../providers/app-push';
+import { Device } from '@ionic-native/device';
 
 let pages = [
     MyApp,
@@ -63,7 +65,7 @@ let pages = [
 ];
 
 export function declarations() {
-  return [pages,CarouselComponent,CategoryTileComponent];
+  return [pages,CarouselComponent,CategoryTileComponent,AppImg];
 }
 
 export function entryComponents() {
@@ -73,7 +75,7 @@ export function entryComponents() {
 export function providers() {
   return [
     // Keep this to enable Ionic's runtime error handling during development
-    StatusBar,SplashScreen,AppUi,InAppBrowser,Config,AppLocalStorage,AppHttp,AppAuth,{ provide: ErrorHandler, useClass: IonicErrorHandler }
+    StatusBar,SplashScreen,AppUi,InAppBrowser,Push,Device,Config,AppLocalStorage,AppHttp,AppAuth,AppPush,{ provide: ErrorHandler, useClass: IonicErrorHandler }
   ];
 }
 

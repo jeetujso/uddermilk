@@ -16,7 +16,7 @@
                     <p class="invalid-text">Please enter a valid email address.</p>
                 </ion-item>
                 <ion-item>
-                    <ion-label floating>{{ formState ? 'Password' : 'OTP' }}</ion-label>
+                    <ion-label floating>Password</ion-label>
                     <ion-input type="password" [formControl]="loginForm.controls['password']"></ion-input>
                 </ion-item>
                 <ion-item>
@@ -24,14 +24,11 @@
                     <ion-label>Remember username</ion-label>
                 </ion-item>
             </ion-list>
-            <button [disabled]="!loginForm.valid" (tap)="formState ? login() : verifyOtp()" ion-button class="button-login" block>{{ formState ? 'Login' : 'Verify' }}</button>
+            <button [disabled]="!loginForm.valid" (tap)="login()" ion-button class="button-login" block>Login</button>
             <ion-row>
                 <ion-col text-left><a (tap)="forgotpass()" clear>Forgot Password </a></ion-col>
                 <ion-col text-right><a (tap)="register()" clear>Register</a></ion-col>
             </ion-row>
-            <!-- <ion-row>
-                <ion-col text-right><a (tap)="changeFormState()"> {{ formState ? 'Verify Account' : 'Back to Login' }}</a></ion-col>
-            </ion-row> -->
         </form>
     </ion-card>
 

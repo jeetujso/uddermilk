@@ -11,7 +11,6 @@ import { Injectable } from '@angular/core';
 export class Config {
 	public application = "UdderMilk";
 	public uriApi = "https://uddermilk.com/webservices/";
-	public uri = "http://www.topflightinstant.com/app/api/";
 	public categoryUri = "https://uddermilk.com/categories_image/";
 	public animalUri = "https://uddermilk.com/animals_image/";
 	public productUri = "https://uddermilk.com/upload/";

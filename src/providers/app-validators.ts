@@ -7,7 +7,6 @@ Description: Angular2 custom validators for use with forms.
 
 ******************************************************************************/
 import { FormControl } from '@angular/forms';
-import { Config } from './config';
 
 export function ValidateIsTrue(c: FormControl) {
 

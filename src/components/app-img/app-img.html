@@ -1,0 +1,3 @@
+<div [class.loading]="imageLoaded == false">
+    <img *ngIf="imageLoaded == true" [src]="sanitize(img.src)"/>
+</div>

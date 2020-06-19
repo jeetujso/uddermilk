@@ -7,7 +7,7 @@ Description: Reusable UI component.
 
 ******************************************************************************/
 import { Injectable } from '@angular/core';
-import { NavController, LoadingController, Loading, AlertController, ToastController } from 'ionic-angular';
+import { LoadingController, Loading, AlertController, ToastController } from 'ionic-angular';
 
 @Injectable()
 export class AppUi {

@@ -24,19 +24,19 @@ export class RegisterPage {
     addressForm: FormGroup;
     map: any = undefined;
     infowindow: any;
+    step: Number = 1;
     
     public passwordsMatch: boolean;
     
     private appAuth: AppAuth;
     private newUser: User;
-    private step: Number = 1;
     private locData: any = { address: ''};
 
     constructor(@Inject(forwardRef(() => AppAuth)) appAuth, private builder: FormBuilder, private nav: NavController,
         private appUi: AppUi, private http: Http, private config: Config, private iab: InAppBrowser) {
         this.appAuth = appAuth;
 
-        this.registerForm = builder.group({
+        this.registerForm = this.builder.group({
             fname: ["", [Validators.required, ValidateWhiteSpace]],
             lname: ["", [Validators.required, ValidateWhiteSpace]],
             email: ["", [Validators.required, ValidateEmail]],
@@ -64,7 +64,7 @@ export class RegisterPage {
         });
     }
 
-    private step1submit() {
+    step1submit() {
         this.appUi.showLoading();
         // validate input
         let formEmail = this.registerForm.value.email.trim();
@@ -80,7 +80,7 @@ export class RegisterPage {
         this.appUi.dismissLoading();
     }
 
-    private showOnMap() {
+    showOnMap() {
         this.appUi.showLoading();
         this.locData.street = this.addressForm.value.street.trim();
         this.locData.apartment = this.addressForm.value.apartment.trim();
@@ -155,7 +155,7 @@ export class RegisterPage {
         this.locData.lng = result.geometry.location.lng;
     }
 
-    private register() {
+    register() {
 
         console.log(this.locData, this.newUser);
 

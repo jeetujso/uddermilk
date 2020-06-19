@@ -5,10 +5,7 @@ Author: Akhilesh Shukla
 
 Description: Angular2 provider for cart maintenance.
 ******************************************************************************/
-import { Injectable, Inject, forwardRef } from '@angular/core';
-import { Observable } from "rxjs/Observable";
-import { AppLocalStorage } from './app-local-storage';
-import { Config } from './config';
+import { Injectable } from '@angular/core';
 
 export class LineItem {
     pid: string|number;

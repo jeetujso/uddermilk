@@ -1,0 +1,19 @@
+app-img {
+    display: block;
+    text-align: center;
+
+    &.overflow > div {
+        max-height: none;
+    }
+
+    & > div {
+        max-height: 155px;
+        overflow: hidden;
+    }
+
+    .loading {
+        height: 100%;
+        min-height: 120px;
+        background: url(/assets/img/loader.gif) no-repeat 50% 50%/100%;
+    }
+}

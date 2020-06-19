@@ -1,10 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
-import { Platform, Nav } from 'ionic-angular';
+import { Platform, Nav, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
 import { MyOrdersPage } from '../pages/my-orders/my-orders';
-import { MyWishlistPage } from '../pages/my-wishlist/my-wishlist';
 import { MyAccountPage } from '../pages/my-account/my-account';
 import { CartPage } from '../pages/cart/cart';
 import { Contact } from '../pages/contact/contact';
@@ -12,8 +11,8 @@ import { LoginPage } from '../pages/login/login';
 import { AppLocalStorage } from '../providers/app-local-storage';
 import { AppAuth } from '../providers/app-auth';
 import { AppUi } from '../providers/app-ui';
-import { Config } from '../providers/config';
 import { StaticPage } from '../pages/static-page/static-page';
+import { AppPush } from '../providers/app-push';
 
 @Component({
     templateUrl: 'app.html'
@@ -40,18 +39,22 @@ export class MyApp {
     ];
 
     constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private storage: AppLocalStorage,
-        private appAuth: AppAuth, private appUi: AppUi, private config: Config) {
+        private appAuth: AppAuth, private appUi: AppUi, public appPush: AppPush, public events: Events) {
 
         this.storage.init('uddermilkDB');
+
         platform.ready().then(() => {
             statusBar.styleDefault();
             statusBar.backgroundColorByHexString('#598c11');
-            splashScreen.hide();
 
+            splashScreen.hide();
+            
             this.appAuth.loadStoredUser().then((resp) => {
                 this.appUi.showToast(`Welcome ${resp.fname}!`);
+                this.appPush.makeInit();
             }, (err) => {
                 console.log(err);
+                this.appPush.makeInit();
             });
 
             // Hardware back button action on android
@@ -82,6 +85,12 @@ export class MyApp {
                 }
             });
 
+            this.events.subscribe("push:received", (notification) => {
+                console.log(notification);
+                console.log(JSON.stringify(notification));
+                this.appUi.showDialog(notification.message, notification.title);
+            });
+
         });
     }
 
@@ -105,14 +114,16 @@ export class MyApp {
                     text: 'Yes',
                     handler: () => {
                         this.appUi.showLoading();
-                        this.appAuth.logout().then((resp) => {
-                            console.log(resp);
-                            this.appUi.dismissLoading();
-                            this.nav.setRoot(HomePage);
-                        }, (err) => {
-                            console.log(err);
-                            this.appUi.dismissLoading();
-                            this.appUi.showDialog('Unexpected error occurred!');
+                        this.appPush.updateUserForPush('0').then(() => {
+                            this.appAuth.logout().then((resp) => {
+                                console.log(resp);
+                                this.appUi.dismissLoading();
+                                this.nav.setRoot(HomePage);
+                            }, (err) => {
+                                console.log(err);
+                                this.appUi.dismissLoading();
+                                this.appUi.showDialog('Unexpected error occurred!');
+                            })
                         })
                     }
                 }
@@ -127,7 +138,7 @@ export class MyApp {
         else if (page.title == 'About Us' || page.title == 'Privacy Policy' || page.title == 'Terms of Service' || page.title == 'FAQs') {
             this.nav.setRoot(StaticPage, {id: page.component, title: page.title});
         }
-        else { //if (this.nav.getActive().name != page.component.name) { // If we are already on this page do nothing
+        else {
             this.nav.setRoot(page.component);
         }
     }

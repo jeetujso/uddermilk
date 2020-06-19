@@ -1,8 +1,7 @@
 {
   "name": "UdderMilk",
-  "app_id": "b7314bf3",
-  "type": "ionic-angular",
   "integrations": {
     "cordova": {}
-  }
+  },
+  "type": "ionic-angular"
 }

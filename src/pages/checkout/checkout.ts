@@ -14,7 +14,6 @@ import 'rxjs/add/operator/map';
 })
 export class Checkout {
 
-    private showRecurring: boolean = false;
     private recurring: boolean = false;
     private comment: string = '';
     private pick_title: any = '';

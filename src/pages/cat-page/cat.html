@@ -7,7 +7,7 @@
     <ion-row class="categories" [hidden]="selectedTab != 'category'">
         <ion-col col-12 col-md-6 [ngClass]="animateClass" *ngFor="let item of animateItems; let i=index" (tap)="openCategory(item)">
             <ion-card>
-                <img [src]="item.Category.categoryimage.length > 0 ? config.categoryUri + item.Category.categoryimage : 'https://uddermilk.com/img/image_not_found.jpg'" />
+                <app-img [src]="item.Category.categoryimage.length > 0 ? config.categoryUri + item.Category.categoryimage : 'https://uddermilk.com/img/image_not_found.jpg'"></app-img>
                 <p>{{item.Category.categoryname}}</p>
             </ion-card>
         </ion-col>
