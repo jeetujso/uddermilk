@@ -18,6 +18,8 @@ page-home {
     }
 
     ion-row.categories {
+        border-top: 4px solid color($colors, primary) !important;
+
         ion-col {
             ion-card {
                 p {
@@ -60,7 +62,7 @@ page-home {
         }
     }
     
-    ion-row.select-tab{
+    /* ion-row.select-tab{
         ion-col {
             background-color: #eee;
             font-size: 16px;
@@ -82,5 +84,5 @@ page-home {
                 border-radius: 7px 7px 0 0;
             }
         }
-    }
+    } */
 }

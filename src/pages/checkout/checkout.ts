@@ -14,10 +14,18 @@ import 'rxjs/add/operator/map';
 })
 export class Checkout {
 
-    private recurring: boolean = false;
-    private comment: string = '';
-    private pick_title: any = '';
-    private pickupLocations: Array<any> = [
+    public recurring: boolean = false;
+    public comment: string = '';
+    public pick_title: any = '';
+    public chk: any = {
+        "C": {
+            "delivery": "P"
+        },
+        "Z": {
+            "delivery": "P"
+        }
+    };
+    public pickupLocations: Array<any> = [
         {
             "Pickuplocation": {
                 "id": "57",
@@ -100,39 +108,82 @@ export class Checkout {
         );
     }
 
+    ionViewDidEnter() {
+        console.log("entered checkout");
+        // Bring pickup validation condition from api if not already brought
+        let url = this.config.uriApi+"userZone?token="+ this.appAuth.currentUser.authToken+"&user_id="+this.appAuth.currentUser.userId;
+
+        this.http.get(url).map(res => res.json()).subscribe(
+            res => {
+                console.log(res);
+                
+                if(res && res.data && res.data[0] && res.data[0].C){
+                    this.chk = res.data[0];
+                }
+                else {
+                    console.log("proper format not found for /userZone api");
+                }
+
+                this.appUi.dismissLoading();
+            },
+            err => {
+                console.log(err);
+                this.appUi.dismissLoading();
+            }
+        );
+    }
+
+    isValid() {
+        // bring from api
+        let cd = this.chk.C.delivery;
+        let zd = this.chk.Z.delivery;
+        
+        if((cd == 'P' || zd == 'P') && this.pick_title.length == 0) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
     proceedToPayment() {
         this.appUi.showLoading();
         console.log('Proceed to payment clicked');
         
         if(this.appAuth.isLoggedIn()){
-            let data = {
-                "cart": this.appAuth.cart,
-                "user_id": this.appAuth.currentUser.userId,
-                "token": this.appAuth.currentUser.authToken,
-                "pick_title": this.pick_title,
-                "recurring": this.recurring,
-                "comment": this.comment,
-            }
-
-            this.appAuth.appHttp.sendRequest('post', this.config.uriApi+'placeorder', data, '', true).subscribe(
-                (res) => {
-                    console.log(res);
-                    if(res.status == 'ok') {
-                        this.appUi.dismissLoading();
-                        this.appAuth.cart.empty();
-                        this.appUi.showDialog('<p>'+res.msg+'</p><p>Your order number is '+res.order_id+'.</p>', 'Order Placed!', () => { this.navCtrl.setRoot(HomePage) });
-                    }
-                    else {
+            if(this.isValid()) {
+                let data = {
+                    "cart": this.appAuth.cart,
+                    "user_id": this.appAuth.currentUser.userId,
+                    "token": this.appAuth.currentUser.authToken,
+                    "pick_title": this.pick_title,
+                    "recurring": this.recurring,
+                    "comment": this.comment,
+                }
+    
+                this.appAuth.appHttp.sendRequest('post', this.config.uriApi+'placeorder', data, '', true).subscribe(
+                    (res) => {
+                        console.log(res);
+                        if(res.status == 'ok') {
+                            this.appUi.dismissLoading();
+                            this.appAuth.cart.empty();
+                            this.appUi.showDialog('<p>'+res.msg+'</p><p>Your order number is '+res.order_id+'.</p>', 'Order Placed!', () => { this.navCtrl.setRoot(HomePage) });
+                        }
+                        else {
+                            this.appUi.dismissLoading();
+                            this.appUi.showDialog('Order failed. Please try again!', 'Error');
+                        }
+                    },
+                    (err) => {
+                        console.log(err);
                         this.appUi.dismissLoading();
                         this.appUi.showDialog('Order failed. Please try again!', 'Error');
                     }
-                },
-                (err) => {
-                    console.log(err);
-                    this.appUi.dismissLoading();
-                    this.appUi.showDialog('Order failed. Please try again!', 'Error');
-                }
-            );
+                );
+            }
+            else {
+                this.appUi.showDialog("We cannot deliver to your location! Please select a pickup location.")
+            }
         }
         else {
             this.navCtrl.push(LoginPage, {goBack: true});

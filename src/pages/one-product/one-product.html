@@ -42,9 +42,9 @@
             </ion-col>
         </ion-row>
         <ion-row>
-            <button ion-button full [disabled]="pkg.available != 'Y'" (click)="addToCart(pkg)">
+            <button ion-button full [disabled]="(pkg.available != 'Y') || !((pkg.track == '1' && pkg.currentstock >= pkg.qty) || (pkg.track != '1'))" (click)="addToCart(pkg)">
                 <ion-icon style="padding-right:7px" name="cart"></ion-icon>
-                {{ pkg.available == 'Y' ? '+ Add to Cart' : 'Not Available' }}
+                {{ (pkg.available == 'Y') && ((pkg.track == '1' && pkg.currentstock >= pkg.qty) || (pkg.track != '1')) ? '+ Add to Cart' : 'Not Available' }}
             </button>
         </ion-row>
     </ion-card>
